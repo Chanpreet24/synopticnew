@@ -1,27 +1,21 @@
 function logInToQuiz(e){
-    // e.preventDefault();
-    // var email = $('#formLogin-email').val();
-    // var password = $('#formLogin-password').val();
-    // db2.createIndex({
-    //     index: {fields: ['email', 'password']}
-    //     }).then(function(){                         //.then contains a function block which allows us to find email and password based on the index created above.
-    //     return db2.find({selector: {
-    //         email: email,
-    //         password: password
-    //       }});
-    //      }).then(function(res){
-
-    //       console.log(JSON.stringify(res.docs[0]));
-    //       if(email = null || undefined && (password = null || undefined)){
-    //         alert('error');
-    //         window.location.href = './logInPage.html';
-    //       }
-    //      else{
-    //         window.location.href = './administratorGame.html';
-    //      }
-    alert(error);
-        // });
-    }
+  e.preventDefault();
+    var email = $('#formLogin-email').val();
+    var password = $('#formLogin-password').val();
+    db2.find({
+        selector: {email, password}                        
+         }).then(function(res){
+          if(res.docs[0] == null || undefined && (password == null || undefined || email == null || undefined)){
+            alert('email or password is incorrect');
+            window.location.href = './logInPage.html';
+          }
+        else{
+          var role = JSON.stringify(res.docs[0]);
+          console.log(role.role);   
+           //window.location.href = "./administratorGame.html?Category=" + 'A';
+         }
+     });
+   }
 
     $('#logInButton').on('click',logInToQuiz);
 
