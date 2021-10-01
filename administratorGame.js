@@ -1,5 +1,3 @@
-
-
 document.querySelector('#log-out-button').addEventListener('click', () => {
     window.location.href = './loginPage.html';
 });

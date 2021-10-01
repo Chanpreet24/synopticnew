@@ -9,10 +9,15 @@ function logInToQuiz(e){
             alert('email or password is incorrect');
             window.location.href = './logInPage.html';
           }
-        else{
-          var role = JSON.stringify(res.docs[0]);
-          console.log(role.role);   
-           //window.location.href = "./administratorGame.html?Category=" + 'A';
+        else{   
+            var parseData = JSON.parse(JSON.stringify(res.docs));
+            var role = parseData[0].role;
+            console.log(role);   
+            if(role == 'admin')
+            window.location.href = "./administratorGame.html";
+            else{
+              window.location.href = "./game.html";
+            }
          }
      });
    }
