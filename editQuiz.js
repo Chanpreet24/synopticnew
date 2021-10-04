@@ -11,7 +11,46 @@ function deleteQuiz(e){
     };
 }
 
+function addQuestion(e){
+  e.preventDefault();
+  var doc = {
+    _id: $('#quizQuestion').val(),
+    quizName: $('#add-quiz-name').val(),
+    question: $('#quizQuestion').val(),
+    answer1:  $('#answer1').val(),
+    answer2:  $('#answer2').val(),
+    answer3:  $('#answer3').val(),
+    answer4:  $('#answer4').val(),
+    correctanswer: $('#correctAnswer').val()
+  };
+  db.put(doc,function(err,res){
+    if(err){
+        switch(err.message){
+            case 'Document update conflict':
+                alert("Question already exists, please log in below");
+                window.location.href = './editQuiz.html';
+                break;
+            default:
+                window.location.href = './editQuiz.html';
+                break;
+        }
+    }else{
+        alert(JSON.stringify(res));
+    }
+  });
+//alert("add question button is clicked"); 
+}
+
+
+$('#addQuizButton').on('click', addQuestion);
+
+
 $('#deleteQuizBtn').on('click', deleteQuiz);
+
+
+
+
+
 
 
 $(document).ready(function(){

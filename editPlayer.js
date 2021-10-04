@@ -43,30 +43,19 @@ function isPasswordValid() {
     }
 }
 
-function isPlayerOfAge() {
-    var age = $('#add-player-ageOfPlayer').val();
-    if(age < 16) {
-        alert ("Player is not eligible to play");  
-        return false;
-    }else {
-        return true;
-    }
-}
-
-
 
 function progressToQuizPage() {
     var email = checkEmail();
     var password = isPasswordValid();
-    var player = isPlayerOfAge();
     var validationError = document.getElementById('add-Forms');
  
-     if (email == true && player == true && password == true) {
+     if (email == true && password == true) {
         var doc = {
             _id: $('#add-player-form-email').val(),
             name: $('#add-player-form-name').val(),
             email: $('#add-player-form-email').val(),
-            password: $('#add-player-form-password').val()
+            password: $('#add-player-form-password').val(),
+            role: $('#add-player-role').val()
         };
 
         db2.put(doc,function(err,res){
