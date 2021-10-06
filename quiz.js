@@ -13,10 +13,12 @@ function logInToQuiz(e){
             var parseData = JSON.parse(JSON.stringify(res.docs));
             var role = parseData[0].role;
             console.log(role);   
-            if(role == 'admin')
-            window.location.href = "./administratorGame.html";
-            else{
-              window.location.href = "./game.html";
+            if(role == 'admin'){
+              window.location.href = "./administratorGame.html";
+            }else if(role == 'advanced') {
+              window.location.href = "./advancedUser.html";
+            }else{
+              window.location.href = "./standardUser.html";           
             }
          }
      });
