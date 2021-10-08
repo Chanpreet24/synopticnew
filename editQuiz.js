@@ -1,20 +1,31 @@
-function deleteQuiz(e){
+function deleteQuestion(e){
     e.preventDefault();
-    var quizToBeDeleted = $('#deleteQuiz').val();
-    db.get(quizToBeDeleted).then(function(doc){
+    var questionToBeDeleted = $('#deleteQuestion').val();
+    db.get(questionToBeDeleted).then(function(doc){
         console.log(JSON.stringify(doc));
         return db.remove(doc);
     });
-
     {
-       return window.location.href = './edit.html';
+       return window.location.href = './editQuiz.html';
     };
+}
+
+function deleteQuiz(e){
+  e.preventDefault();
+  var quizToBeDeleted = $('#deleteQuiz').val();
+  db.get(quizToBeDeleted).then(function(doc){
+      console.log(JSON.stringify(doc));
+      return db.remove(doc);
+  });
+  {
+     return window.location.href = './editQuiz.html';
+  };
 }
 
 function addQuestion(e){
   e.preventDefault();
   var doc = {
-    _id: $('#quizQuestion').val(),
+    _id: $('#add-quiz-name').val(),
     quizName: $('#add-quiz-name').val(),
     question: $('#quizQuestion').val(),
     answer1:  $('#answer1').val(),
@@ -27,7 +38,7 @@ function addQuestion(e){
     if(err){
         switch(err.message){
             case 'Document update conflict':
-                alert("Question already exists, please log in below");
+                alert("Question already exists");
                 window.location.href = './editQuiz.html';
                 break;
             default:
@@ -45,8 +56,9 @@ function addQuestion(e){
 $('#addQuizButton').on('click', addQuestion);
 
 
-$('#deleteQuizBtn').on('click', deleteQuiz);
+$('#deleteQuestionBtn').on('click', deleteQuestion);
 
+$('#deleteQuizBtn').on('click', deleteQuiz);
 
 
 
@@ -67,8 +79,9 @@ db.allDocs({
  
  var questions = result.rows;
  questions.forEach(element => {
-    console.log(element);
-     var row = "<tr><td>" + element.id + "</td><td>" + element.doc.answer + "</td><td>" + "</td><td>" + "<button>Edit Question</button>" + "</td><td>" + "<button>Delete Question</button>" + "</td></tr>";
+  if(element.doc.correctanswer == 20)
+     //console.log(element);
+     var row = "<tr><td>" + element.id + "</td><td>" + element.doc.correctanswer + "</td><td>" + "</td><td>" + "<button>Edit Question</button>" + "</td><td>" + "<button>Delete Question</button>" + "</td></tr>";
      $("#quizTable").append(row);
  });
 }).catch(function (err) {
@@ -81,3 +94,6 @@ db.allDocs({
 document.querySelector('#editQuiz-back-button').addEventListener('click', () => {
   window.location.href = './administratorGame.html';
 });
+
+
+
